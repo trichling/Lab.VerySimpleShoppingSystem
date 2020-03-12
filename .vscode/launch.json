@@ -1,0 +1,43 @@
+{
+   // Use IntelliSense to find out which attributes exist for C# debugging
+   // Use hover for the description of the existing attributes
+   // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+   "version": "0.2.0",
+   "compounds": [
+       {
+           "name": "Launch Application and Service",
+           "configurations": [
+               "Launch Shopping Application",
+               "Launch Shopping Service"
+           ]
+       }
+   ],
+   "configurations": [
+        {
+            "name": "Launch Shopping Application",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildShoppingApplication",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/ShoppingApplication/bin/Debug/netcoreapp3.1/ShoppingApplication.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/ShoppingApplication",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "externalTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Launch Shopping Service",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildShoppingService",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/ShoppingService/bin/Debug/netcoreapp3.1/ShoppingService.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/ShoppingService",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "externalTerminal",
+            "stopAtEntry": false
+        },
+    ]
+}
