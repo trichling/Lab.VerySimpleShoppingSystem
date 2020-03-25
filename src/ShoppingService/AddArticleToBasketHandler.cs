@@ -8,7 +8,7 @@ namespace ShoppingService
 {
     public class AddArticleToBasketHandler : IHandleMessages<AddArticleToBasket>
     {
-        public static ILog Log = LogManager.GetLogger<AddArticleToBasketHandler>();
+        public static ILog Log = LogManager.GetLogger<AddArticleToBasketHandler>();     
 
         public async Task Handle(AddArticleToBasket message, IMessageHandlerContext context)
         {

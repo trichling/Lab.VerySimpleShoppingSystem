@@ -6,6 +6,15 @@ using NServiceBus.Logging;
 
 namespace ShoppingService
 {
+    public class PlaceOrderSagaData : ContainSagaData
+    {
+        public Guid OrderId { get; set; }
+
+        public bool TermsAccepted { get; set; }
+        public bool TermsRejected { get; set; }
+        public bool PaymentDetailsProvided { get; set; }
+    }
+
     public class PlaceOrderSaga : Saga<PlaceOrderSagaData>,
         IAmStartedByMessages<OrderPlaced>,
         IHandleMessages<TermsAccepted>,
@@ -14,7 +23,19 @@ namespace ShoppingService
     
     {
 
+        
+
         public static ILog Log = LogManager.GetLogger<PlaceOrderSaga>();
+
+        protected override void ConfigureHowToFindSaga(SagaPropertyMapper<PlaceOrderSagaData> mapper)
+        {
+            mapper.ConfigureMapping<OrderPlaced>(msg => msg.OrderId).ToSaga(d => d.OrderId);
+            mapper.ConfigureMapping<TermsAccepted>(msg => msg.OrderId).ToSaga(d => d.OrderId);
+            mapper.ConfigureMapping<TermsRejected>(msg => msg.OrderId).ToSaga(d => d.OrderId);
+            mapper.ConfigureMapping<PaymentDetailsProvided>(msg => msg.OrderId).ToSaga(d => d.OrderId);
+        }
+
+
         public Task Handle(OrderPlaced message, IMessageHandlerContext context)
         {
             Log.Info($"Start place order process for order id {message.OrderId}");
@@ -55,7 +76,7 @@ namespace ShoppingService
 
                 await context.Publish(new OrderRejected() {
                     OrderId = Data.OrderId
-                });
+                });                
 
                 return;
             }
@@ -70,23 +91,9 @@ namespace ShoppingService
             }
         }
 
-        protected override void ConfigureHowToFindSaga(SagaPropertyMapper<PlaceOrderSagaData> mapper)
-        {
-            mapper.ConfigureMapping<OrderPlaced>(msg => msg.OrderId).ToSaga(d => d.OrderId);
-            mapper.ConfigureMapping<TermsAccepted>(msg => msg.OrderId).ToSaga(d => d.OrderId);
-            mapper.ConfigureMapping<TermsRejected>(msg => msg.OrderId).ToSaga(d => d.OrderId);
-            mapper.ConfigureMapping<PaymentDetailsProvided>(msg => msg.OrderId).ToSaga(d => d.OrderId);
-        }
-
+        
        
     }
 
-    public class PlaceOrderSagaData : ContainSagaData
-    {
-        public Guid OrderId { get; set; }
-
-        public bool TermsAccepted { get; set; }
-        public bool TermsRejected { get; set; }
-        public bool PaymentDetailsProvided { get; set; }
-    }
+    
 }

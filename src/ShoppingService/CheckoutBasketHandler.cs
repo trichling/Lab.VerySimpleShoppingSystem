@@ -11,6 +11,11 @@ namespace ShoppingService
     {
         public static ILog Log = LogManager.GetLogger<CheckoutBasketHandler>();
 
+        public CheckoutBasketHandler(/* Parameter werden per DI injiziert */)
+        {
+            
+        }
+
         public async Task Handle(CheckoutBasket message, IMessageHandlerContext context)
         {
             var orderId = Guid.NewGuid();

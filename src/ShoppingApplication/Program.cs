@@ -30,6 +30,8 @@ namespace ShoppingApplication
                 .Start()
                 .Instance;
 
+
+
             var userId = Guid.NewGuid();
 
             Console.WriteLine($"Hello user {userId}. Please type an article number to add to the basket");

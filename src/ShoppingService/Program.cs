@@ -23,8 +23,8 @@ namespace ShoppingSerivce
 
                     return configurationBuilder.Configuration;
                 })
-                .ConfigureServices((hostContext, services) =>
-                {
+                .ConfigureServices(services => {
+                    
                 })
                 .UseConsoleLifetime();
     }
